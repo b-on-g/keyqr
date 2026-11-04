@@ -1,0 +1,10 @@
+$bog_keyqr_scan $mol_view
+	scanning? false
+	found? \
+	sub /
+		<= Toggle $mol_check
+			title @ \Сканировать QR
+			checked? <=> scanning?
+		<= Camera $mol_video_camera
+			facing \environment
+			muted true

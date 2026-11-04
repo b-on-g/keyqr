@@ -1,0 +1,18 @@
+$bog_keyqr $mol_list
+	key \
+	found? \
+	shown? false
+	rows /
+		<= Show $mol_check
+			title @ \Показать ключ
+			checked? <=> shown?
+		<= Warning $mol_paragraph
+			title @ \Ключ даёт полный доступ к аккаунту. Показывайте его только своему устройству.
+		<= Qr $bog_qr
+			uri <= key
+			error_correction \L
+		<= Copy $mol_button_copy
+			title @ \Скопировать ключ
+			text <= key
+		<= Scan $bog_keyqr_scan
+			found? <=> found?

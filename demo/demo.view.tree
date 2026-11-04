@@ -1,0 +1,14 @@
+$bog_keyqr_demo $mol_example_small
+	title \Передача ключа между устройствами
+	sub /
+		<= Box $bog_keyqr
+			key <= key \demo-key-0123456789abcdef
+			found? <=> found? \
+		<= Received $mol_paragraph
+			title <= received \
+	tags /
+		\qr
+		\key
+		\camera
+	aspects /
+		\UI\QR
