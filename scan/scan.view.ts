@@ -1,7 +1,5 @@
 namespace $.$$ {
 
-	const qr_module = require( 'jsqr/dist/jsQR.js' ) as Qr_read & { default?: Qr_read }
-	const qr_read = qr_module.default ?? qr_module
 	type Qr_read = typeof import(
 		'jsqr'
 	).default
@@ -10,6 +8,11 @@ namespace $.$$ {
 
 		sub() {
 			return this.scanning() ? [ this.Toggle(), this.Camera() ] : [ this.Toggle() ]
+		}
+
+		qr_read( data: Uint8ClampedArray, width: number, height: number ) {
+			const lib = require( 'jsqr/dist/jsQR.js' ) as Qr_read & { default?: Qr_read }
+			return ( lib.default ?? lib )( data, width, height )
 		}
 
 		@ $mol_mem
@@ -35,7 +38,7 @@ namespace $.$$ {
 			const context = canvas.getContext( '2d', { willReadFrequently: true } )!
 			context.drawImage( video, 0, 0, width, height )
 
-			const found = qr_read( context.getImageData( 0, 0, width, height ).data, width, height )
+			const found = this.qr_read( context.getImageData( 0, 0, width, height ).data, width, height )
 			if( !found?.data ) return null
 
 			setTimeout( ()=> {
